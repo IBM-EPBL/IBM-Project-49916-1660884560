@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/login.css') }}">
+    
+</head>
+<body>
+  <div class="main">
+    <h1>Hello {{user}}!</h1>
+    <h3>Profile</h3>
+    <p>Gender: {{gender}}</p>
+    <p>interests: {{interest}}</p>
+    <p>Degree: {{degree}}</p>
+  </div>
+    
+{% block content %}
+{% endblock %}
+ </body>
+</html>
