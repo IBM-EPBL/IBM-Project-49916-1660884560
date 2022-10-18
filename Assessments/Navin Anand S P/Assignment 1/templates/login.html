@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/login.css') }}">
+    
+</head>
+  <body>
+    <div class="main">
+      <p class="sign" align="center">Log in</p>      
+      <form class="form1" action="/login" method="get">
+
+        <label for="uname">Username: </label><input class="un" name="uname" type="text" align="center" placeholder="Username">
+        <br/><br/>
+
+        <label for="pass">Password: </label><input class="pass" name="psw" type="password" align="center" placeholder="Password">
+        <br/><br/>
+
+        <p class="gender">Gender: </p>
+          <input type="radio" id="male" name="gender" value="male">
+          <label for="male">Male</label><br>
+          <input type="radio" id="female" name="gender" value="female">
+          <label for="female">Female</label><br><br/>
+
+        <label for="interest">What are your Interests?</label><br/>
+        <textarea id="interest" name="interest" rows="4" cols="50"></textarea><br/><br/>
+
+        <label for="degree">Degree: </label>
+        <select name="degree" id="degree">
+            <option value="Be">BE</option>
+            <option value="Btech">B.Tech</option>
+            <option value="Bcom">B.Com</option>
+        </select><br/><br/>
+
+        <input type="submit" class="submit" align="center"/>
+      </form>
+      </div>
+    
+{% block content %}
+{% endblock %}
+
+ </body>
+</html>
