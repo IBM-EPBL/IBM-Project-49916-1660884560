@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="{{ url_for('static',    filename='upload.css') }}">
+    </head>
+<body>
+    
+<div class="container">
+    <div class="card">
+      <h3>Upload Files</h3>
+      <div class="drop_box">
+        <header>
+          <h4>Select File here</h4>
+        </header>
+        <p>Files Supported: PDF, TEXT, DOC , DOCX, JPEG, PNG, JPG, MPEG</p>
+        <form action="http://localhost:5000/uploader" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" class="file"/>
+            <input type="submit" class="btn"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
