@@ -1,0 +1,42 @@
+body{
+    background-color: bisque;
+}
+
+.main {
+    border: 1px solid black;
+    max-width: fit-content;
+    padding: 10px;
+    background-color: rgb(255, 142, 142);
+    margin: 5em auto;
+}
+
+label{
+    font-family: sans-serif;
+    font-weight: bold;
+}
+.gender {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.sign {
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: large;
+}
+
+.submit {
+    cursor: pointer;
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, #8a2323, #fe1d1d);
+    border: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-left: 35%;
+    font-size: 13px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+}
