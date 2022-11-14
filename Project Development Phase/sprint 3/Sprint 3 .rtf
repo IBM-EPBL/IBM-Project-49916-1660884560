@@ -1,0 +1,174 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs40\lang9\par
+FAKE NEWS DETECTION \par
+\par
+\b0\fs22 import pandas as pd\par
+import numpy as np\par
+from sklearn.model_selection import train_test_split\par
+from sklearn.ensemble import RandomForestClassifier\par
+from sklearn.svm import SVC\par
+from sklearn.metrics import accuracy_score, classification_report,\par
+confusion_matrix\par
+from sklearn.pipeline import Pipeline\par
+from sklearn.feature_extraction.text import TfidfVectorizer\par
+import matplotlib.pyplot as plt\par
+from sklearn.metrics import precision_score\par
+from sklearn.metrics import recall_score\par
+from sklearn.metrics import f1_score\par
+from sklearn.metrics import cohen_kappa_score\par
+from sklearn.linear_model import LogisticRegression\par
+import sklearn\par
+import tkinter as tk\par
+from tkinter import ttk\par
+from tkinter import Menu\par
+from tkinter import messagebox as mbox\par
+app = tk.Tk()\par
+data = pd.read_csv("data.csv")\par
+print(data.head())\par
+print(data.info())\par
+print(data.isnull().sum())\par
+print(data.head())\par
+print(data['Label'].value_counts())\par
+#data['Body'].fillna('ok', inplace=True)\par
+#data['Label'].fillna(0, inplace=True)\par
+data=data.dropna(how="any")\par
+print(data)\par
+print(data.info())\par
+print(data.isnull().sum())\par
+#histogram of chest pain\par
+plt.figure(figsize=(10,8))\par
+plt.title("Histogram of Label")\par
+plt.hist(data['Label'],rwidth=0.9)\par
+plt.show()\par
+X_train, X_test, y_train, y_test = train_test_split(data['Body'],\par
+data['Label'],\par
+test_size = 0.2, random_state=0, shuffle=True, stratify=data['Label'])\par
+print(y_test.shape)\par
+print(X_train)\par
+print(y_train)\par
+print("Training Started")\par
+from sklearn.svm import SVC\par
+from sklearn.ensemble import VotingClassifier\par
+# Fitting RF and LM to the Training set estimators = []\par
+model1 = Pipeline([('tfidf', TfidfVectorizer()),\par
+('clf', RandomForestClassifier(n_estimators=1000, n_jobs=-1))])\par
+estimators.append(('rt1', model1))\par
+model2 =Pipeline([('tfidf', TfidfVectorizer()),\par
+('clf', RandomForestClassifier(n_estimators=1000, n_jobs=-1))])\par
+estimators.append(('rt2', model2))\par
+model3 =Pipeline([('tfidf', TfidfVectorizer()),\par
+('clf', RandomForestClassifier(n_estimators=1000, n_jobs=-1))])\par
+estimators.append(('rt3', model3))\par
+model4 =Pipeline([('tfidf', TfidfVectorizer()), ('clf', SVC())])\par
+estimators.append(('rt4', model4))\par
+model5 =Pipeline([('tfidf', TfidfVectorizer()), ('clf', SVC())])\par
+estimators.append(('rt5', model5))\par
+#hybrid ensembling\par
+ensemble = VotingClassifier(estimators)\par
+ensemble.fit(X_train, y_train)\par
+y_pred = ensemble.predict(X_test)\par
+import pickle\par
+trPickle = open('training_pickle_file', 'wb')\par
+pickle.dump(ensemble, trPickle)\par
+print("Training Ended")\par
+print(y_pred)\par
+#confussion Matrix\par
+cm_HybridEnsembler = confusion_matrix(y_test, y_pred)\par
+print("Confussion Matrix :")\par
+print(cm_HybridEnsembler)\par
+print(" ")\par
+#from sklearn.metrics import plot_confusion_matrix\par
+#import warnings\par
+#warnings.filterwarnings("ignore", category=FutureWarning)\par
+#plot_confusion_matrix(ensemble, X_test, y_test)\par
+#plt.show()\par
+from sklearn.metrics import accuracy_score, classification_report,\par
+confusion_matrix acc = accuracy_score(y_test, y_pred)\par
+print("Accuracy Score :")\par
+print(acc)\par
+print(" ")\par
+testy = y_test\par
+yhat_classes = y_pred\par
+precision = precision_score(testy, yhat_classes)\par
+print('Precision: %f' % precision)\par
+recall = recall_score(testy, yhat_classes)\par
+print('Recall: %f' % recall)\par
+f1 = f1_score(testy, yhat_classes)\par
+print('F1 score: %f' % f1)\par
+# kappa\par
+kappa = cohen_kappa_score(testy, yhat_classes)\par
+print('Cohens kappa: %f' % kappa)\par
+\par
+\b\fs40 TEST THE NEWS\par
+\b0\fs22 import numpy\par
+import os\par
+import subprocess\par
+import numpy\par
+import random\par
+import json\par
+import pickle\par
+from time import sleep\par
+from sklearn.neighbors import KNeighborsClassifier\par
+from tkinter import *\par
+from tkinter import ttk\par
+from tkinter import Menu\par
+from tkinter import messagebox\par
+from tkinter import scrolledtext\par
+# import filedialog module\par
+from tkinter import filedialog\par
+flg=0;\par
+import tkinter as tk\par
+model1 = pickle.load(open('training_pickle_file', 'rb'))\par
+def checkfakenews():\par
+in1 = inputtxt1.get();\par
+import numpy as np\par
+a=[]\par
+a.append(in1)\par
+print(a)\par
+import numpy as np\par
+ynew=model1.predict(a)\par
+ynew = ynew.round()\par
+#ynew = ynew.argmax()\par
+print(ynew)\par
+if (ynew[0]==0):\par
+print(" ")\par
+print("Normal")\par
+messagebox.showinfo('Result', 'Normal')\par
+print(" ")\par
+if (ynew[0]==1):\par
+ print(" ")\par
+ print("Fake News Detected")\par
+ messagebox.showinfo('Result', 'Fake News Detected')\par
+ print(" ")\par
+ t=0;\par
+ if(t==0):\par
+ #if __name__ == '__main__':\par
+ print("started")\par
+ window = Tk()\par
+ # Set window title\par
+ window.title('Fake News Detection system')\par
+ # Set window size\par
+ window.geometry("700x400")\par
+ #Set window background color\par
+ window.config(background = "white")\par
+ # Create a File Explorer label\par
+ label_file_explorer = Label(window,\par
+ text = "Please fill Inputs",\par
+ width = 100, height = 4,fg = "blue")\par
+ lbl1 = tk.Label(window, text = "Enter News Content")\par
+ Inputtxt1 = Entry(window)\par
+ button_start = Button(window,\par
+ text = "submit", command = checkfakenews)\par
+ # Grid method is chosen for placing\par
+ # the widgets at respective positions\par
+ # in a table like structure by\par
+ # specifying rows and columns\par
+ label_file_explorer.grid(column = 1, row = 1, padx=5, pady=5)\par
+ lbl1.grid(column = 1, row = 2, padx=5, pady=5)\par
+ inputtxt1.grid(column = 1, row = 3, padx=5, pady=5)\par
+ button_start.grid(column = 1,row = 6, padx=5, pady=5)\par
+ # Let the window wait for any events\par
+ window.mainloop()\par
+#checkTaxifraud()\par
+}
